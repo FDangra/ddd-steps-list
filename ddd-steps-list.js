@@ -12,7 +12,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
  * @demo index.html
  * @element ddd-steps-list
  */
-export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
+export class DDDStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
   static get tag() {
     return "ddd-steps-list";
@@ -20,11 +20,10 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.title = "";
     this.t = this.t || {};
     this.t = {
       ...this.t,
-      title: "Title",
+      title: "Steps",
     };
     this.registerLocalization({
       context: this,
@@ -39,7 +38,6 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   static get properties() {
     return {
       ...super.properties,
-      title: { type: String },
     };
   }
 
@@ -52,6 +50,8 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
         color: var(--ddd-theme-primary);
         background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
+        border-left: 4px solid var(--ddd-primary-color, #0057b8);
+        padding: var(--ddd-spacing-2);
       }
       .wrapper {
         margin: var(--ddd-spacing-2);
@@ -63,13 +63,34 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.validateChildren();
+    this.updateSteps();
+  }
+
+  validateChildren() {
+    Array.from(this.children).forEach(child => {
+      if (child.tagName.toLowerCase() !== "ddd-steps-list-item") {
+        console.warn("Removing invalid child:", child);
+        this.removeChild(child);
+      }
+    });
+  }
+
+  updateSteps() {
+    Array.from(this.children).forEach((child, index) => {
+      child.setAttribute("step", index + 1);
+    });
+  }
+
   // Lit render the HTML
   render() {
     return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
+      <div class="wrapper">
+        <h3><span>${this.t.title}:</span></h3>
+        <slot></slot>
+      </div>`;
   }
 
   /**
@@ -81,4 +102,57 @@ export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
   }
 }
 
-globalThis.customElements.define(DddStepsList.tag, DddStepsList);
+globalThis.customElements.define(DDDStepsList.tag, DDDStepsList);
+
+/**
+ * `ddd-steps-list-item`
+ * 
+ * @element ddd-steps-list-item
+ */
+export class DDDStepsListItem extends DDDSuper(LitElement) {
+
+  static get tag() {
+    return "ddd-steps-list-item";
+  }
+
+  constructor() {
+    super();
+    this.step = 0;
+    this.title = "";
+  }
+
+  static get properties() {
+    return {
+      ...super.properties,
+      step: { type: Number, reflect: true },
+      title: { type: String }
+    };
+  }
+
+  static get styles() {
+    return [super.styles,
+    css`
+      :host {
+        display: block;
+        margin: var(--ddd-spacing-2);
+        padding: var(--ddd-spacing-4);
+        border: var(--ddd-border-md);
+        border-radius: var(--ddd-radius-lg);
+        background-color: var(--ddd-accent-2);
+        color: var(--ddd-primary-17);
+      }
+      .step {
+        font-weight: bold;
+      }
+    `];
+  }
+
+  render() {
+    return html`
+      <div class="step">Step ${this.step}: ${this.title}</div>
+      <slot></slot>
+    `;
+  }
+}
+
+globalThis.customElements.define(DDDStepsListItem.tag, DDDStepsListItem);
