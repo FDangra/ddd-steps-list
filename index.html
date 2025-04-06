@@ -1,94 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DDD Steps List Demo</title>
+    <script type="module" src="./your-component-file.js"></script> <!-- update this to match your JS file name -->
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        padding: 2rem;
+      }
 
-<head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Demonstration for vertical-step-list">
+      ddd-steps-list {
+        max-width: 600px;
+        margin: auto;
+        --ddd-theme-primary: #002d74;
+        --ddd-theme-accent: #ffffff;
+        --ddd-accent-1: #e9eff7;
+        --ddd-primary-color: #1e407c;
+        --ddd-font-navigation: 'Segoe UI', sans-serif;
+        --ddd-spacing-2: 8px;
+        --ddd-spacing-4: 16px;
+        --ddd-radius-lg: 12px;
+        --ddd-font-size-l: 1.25rem;
+        --ddd-font-size-s: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Penn State Style Stepper Demo</h1>
 
-  <style>
-    :root, html, body {
-      margin: 0;
-      padding: 0;
-    }
-    #demo {
-      margin: var(--ddd-spacing-2);
-    }
-    vertical-step-list {
-      margin: var(--ddd-spacing-2);
-      border: var(--ddd-border-md);
-      border-radius: var(--ddd-radius-lg);
-    }
-    vertical-step-list:hover {
-      box-shadow: var(--ddd-boxShadow-sm);
-    }
-    #example {
-      --vertical-step-list-font-size: var(--ddd-font-size-l);
-      background-color: var(--ddd-accent-2);
-      color: var(--ddd-primary-17);
-    }
-  </style>
-  <title>vertical-step-list</title>
-</head>
-
-<body>
-  <div id="demo">
-    <h1>ddd-steps-list</h1>
-    <h2>Default</h2>
     <ddd-steps-list>
-      <ddd-steps-list-item title="Choose your enrollment period">
-        <p>You will need to complete this before the Fall 2025 semester...</p>
+      <ddd-steps-list-item title="Choose your major">
+        <p>Explore all the majors offered and decide which aligns best with your goals and interests.</p>
+      </ddd-steps-list-item>
+      <ddd-steps-list-item title="Meet with an advisor">
         <ul>
-          <li>Thing 1</li>
+          <li>Schedule an appointment</li>
+          <li>Ask about prerequisites and course planning</li>
         </ul>
       </ddd-steps-list-item>
-      <ddd-steps-list-item title="Get Help">
-        <p>Utilize these resources for assistance with Federal Aid...</p>
-      </ddd-steps-list-item>
-      <ddd-steps-list-item title="Ensure Receipt of Email">
-        <p>Ensure your email settings allow messages from these addresses...</p>
+      <ddd-steps-list-item title="Declare your major officially">
+        <p>Use LionPATH to declare your chosen major after meeting all requirements.</p>
       </ddd-steps-list-item>
     </ddd-steps-list>
-  </div>
-  <script type="module" src="./ddd-steps-list.js"></script>
-  
-  <!-- Take HAX, the Web and you further down the rabbit hole -->
-  <style>
-    #follow-the-white-rabbit {
-      margin: var(--ddd-spacing-4) auto 64px  16px;
-      background-color: var(--ddd-accent-4);
-      color: black;
-    }
-    #follow-the-white-rabbit[open] summary {
-      background-color: var(--ddd-accent-4) !important;
-      color: black;
-    }
-    #follow-the-white-rabbit[open] .content {
-      padding: 0 var(--ddd-spacing-4);
-    }
-    #follow-the-white-rabbit ul,
-    #follow-the-white-rabbit li {
-      padding: 0;
-      margin: 0;
-    }
-    #follow-the-white-rabbit li {
-      font-size: var(--ddd-font-size-xs);
-      list-style: none;
-    }
-    #follow-the-white-rabbit li strong,
-    #follow-the-white-rabbit li a {
-      padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
-      color: black;
-      display: block;
-      font-weight: bold;
-    }
-    #follow-the-white-rabbit li:focus-within a,
-    #follow-the-white-rabbit li:hover a {
-      background-color: black;
-      color: yellow;
-    }
-  </style>
-  
-</body>
+  </body>
 </html>
