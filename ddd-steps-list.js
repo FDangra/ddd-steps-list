@@ -34,14 +34,12 @@ export class DDDStepsList extends DDDSuper(I18NMixin(LitElement)) {
     });
   }
 
-  // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
     };
   }
 
-  // Lit scoped styles
   static get styles() {
     return [super.styles,
     css`
@@ -50,12 +48,12 @@ export class DDDStepsList extends DDDSuper(I18NMixin(LitElement)) {
         color: var(--ddd-theme-primary);
         background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
-        border-left: 4px solid var(--ddd-primary-color, #0057b8);
         padding: var(--ddd-spacing-2);
       }
       .wrapper {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
+        position: relative;
       }
       h3 span {
         font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
@@ -84,7 +82,6 @@ export class DDDStepsList extends DDDSuper(I18NMixin(LitElement)) {
     });
   }
 
-  // Lit render the HTML
   render() {
     return html`
       <div class="wrapper">
@@ -93,12 +90,8 @@ export class DDDStepsList extends DDDSuper(I18NMixin(LitElement)) {
       </div>`;
   }
 
-  /**
-   * haxProperties integration via file reference
-   */
   static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url).href;
   }
 }
 
@@ -130,27 +123,66 @@ export class DDDStepsListItem extends DDDSuper(LitElement) {
   }
 
   static get styles() {
-    return [super.styles,
-    css`
+    return [super.styles, css`
       :host {
-        display: block;
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-        border: var(--ddd-border-md);
-        border-radius: var(--ddd-radius-lg);
-        background-color: var(--ddd-accent-2);
-        color: var(--ddd-primary-17);
+        display: flex;
+        position: relative;
+        padding: var(--ddd-spacing-4) var(--ddd-spacing-4) var(--ddd-spacing-4) 56px;
+        margin: var(--ddd-spacing-4) 0;
+        background-color: var(--ddd-accent-1, #f9f9f9);
+        border-radius: var(--ddd-radius-lg, 8px);
+        border-left: 4px solid var(--ddd-primary-color, #0057b8);
       }
-      .step {
+
+      .circle {
+        position: absolute;
+        left: 0;
+        top: var(--circle-offset, 24px);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: var(--ddd-primary-color, #0057b8);
+        color: white;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        z-index: 1;
+      }
+
+      .content {
+        flex: 1;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: var(--ddd-font-size-l, 1.25rem);
+        margin-bottom: 8px;
+      }
+
+      ::slotted(p),
+      ::slotted(ul) {
+        margin: 0 0 8px 0;
+      }
+
+      ::slotted(ul) {
+        padding-left: 20px;
+      }
+
+      ::slotted(li) {
+        margin-bottom: 4px;
       }
     `];
   }
 
   render() {
     return html`
-      <div class="step">Step ${this.step}: ${this.title}</div>
-      <slot></slot>
+      <div class="circle">${this.step}</div>
+      <div class="content">
+        <div class="title">${this.title}</div>
+        <slot></slot>
+      </div>
     `;
   }
 }
